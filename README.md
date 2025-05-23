@@ -1,15 +1,24 @@
-# ChatGPT Export Browser Bookmarklet
 
-The ChatGPT Export bookmarklet is a convenient tool that allows you to effortlessly export conversations with ChatGPT as markdown files. With this bookmarklet, you can capture and save your ChatGPT conversations in a readable format for easy reference and sharing.
+# ChatGPT to Clipboard Bookmarklet
 
-## Installation
+**Forked from [geeksta/chatgpt-export](https://github.com/geeksta/chatgpt-export)**
 
-To get started, simply visit the [ChatGPT to Markdown web page](https://geeksta.net/tools/chatgpt-to-markdown/) and drag the bookmarklet link to your browser's bookmark toolbar. You can also review the source code of the link to ensure its integrity and functionality.
-
-Alternatively, if you prefer a more hands-on approach, you can clone this repository, install the necessary dependencies, and compile the code on your own machine.
+This is a minimal fork of the original ChatGPT Export bookmarklet. Instead of downloading the whole conversation as a markdown file, this version copies the **last ChatGPT response** directly to your clipboard in markdown format.
 
 ## How it works
 
-Once the bookmarklet link is clicked on a ChatGPT conversation page the `document.body` is cloned and modified in the cloned version to remove any unnecessary information, ensuring a clean and concise output. Finally, the resulting HTML code is converted to markdown format and downloaded as a text file. The file is automatically named based on the conversation's title in the ChatGPT interface.
+When you click the bookmarklet on a ChatGPT conversation page, it collects and converts the last message (not the whole conversation!) to Markdown, and copies it to your clipboard. A notification lets you know if the copy succeeded.
 
-With the ChatGPT Export browser bookmarklet, archiving and sharing your ChatGPT conversations as markdown files becomes a seamless process, enhancing your productivity and collaboration.
+## Installation
+
+Clone this repository, install dependencies, and build the bookmarklet:
+
+```
+npm install
+node build.js
+```
+Then, copy the bookmarklet code in `dist/gpt2md.bookmarklet.js` and add it as a bookmark in your browser.
+
+## Credits and License
+
+This project is a fork of [geeksta/chatgpt-export](https://github.com/geeksta/chatgpt-export) and inherits its license. All credits for the markdown export logic and base implementation go to [geeksta](https://github.com/geeksta).
