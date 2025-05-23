@@ -27,22 +27,25 @@ body.querySelectorAll('.text-message pre').forEach((n) => {
 
 // Iterate through main text containers and create text to export
 let text = `# ${document.title}\n\n`;
-body.querySelectorAll('.text-message').forEach((n, i) => {
-    const num = Math.trunc(i / 2) + 1;
+const messages = body.querySelectorAll('.text-message');
+if (messages.length > 0) {
+    const n = messages[messages.length - 1];
     const prose = n.querySelector('.prose');
     if (prose) {
-        // Only convert response markup to markdown
-        text += `## RESPONSE ${num}\n\n${ts.turndown(prose.innerHTML)}\n\n`;
+        text += ts.turndown(prose.innerHTML) + "\n\n";
     } else {
-        // Keep prompt text as it was entered
-        text += `## PROMPT ${num}\n\n${n.querySelector('div').innerText}\n\n`;
+        text += n.querySelector('div').innerText + "\n\n";
     }
-});
+}
 
-// Download
-const a = document.createElement('a');
-a.download = `${document.title}.md`;
-a.href = URL.createObjectURL(new Blob([text]));
-a.style.display = 'none';
-document.body.appendChild(a);
-a.click();
+
+// Copy to clipboard
+if (navigator && navigator.clipboard) {
+  navigator.clipboard.writeText(text).then(() => {
+    alert('Last message copied to clipboard!');
+  }).catch((err) => {
+    alert('Failed to copy to clipboard: ' + err);
+  });
+} else {
+  alert('Clipboard API not available.');
+}
